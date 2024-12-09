@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:mobile_tokoku/src/dashboard/small_menu.dart';
 import 'package:mobile_tokoku/src/utils/TColors.dart';
-import 'package:mobile_tokoku/src/utils/common_textfield.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -24,110 +25,83 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> imgSliders = imgList
-        .map(
-          (item) => SizedBox(
-            height: 20,
-            width: MediaQuery.of(context).size.width,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5.0),
-              child: Image.network(
-                item,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        )
-        .toList();
-
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(color: TColors.primary),
-          child: ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: CommonTextfield(
-                  controller: searchTextController,
-                  keyboardType: TextInputType.text,
-                  prefixIconData: Icons.search,
-                  hintText: "Search Here",
-                  onChanged: (val) {
-                    return val;
-                  },
-                ),
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: GridView.count(
-                  shrinkWrap: true,
-                  crossAxisCount: 5,
-                  children: List.generate(8, (index) {
-                    return Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: TColors.white,
-                            border: Border.all(color: TColors.white),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(7.0),
-                            child: Icon(
-                              Icons.verified_user,
-                              size: 20,
-                            ),
-                          ),
-                        ),
-                        const Text(
-                          "Data",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 12),
-                        )
-                      ],
-                    );
-                  }),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.only(top: 40.0),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                decoration: const BoxDecoration(
-                  color: TColors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(50.0),
-                  ),
-                ),
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  children: List.generate(imgList.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(2.0),
-                        child: Image.network(
-                          imgList[index],
-                          height: 10.0,
-                          fit: BoxFit.cover,
-                        ),
+    return Column(
+      children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.all(10.0),
+          child: DashboardSmallMenu(),
+        ),
+        const SizedBox(height: 2),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            alignment: WrapAlignment.start,
+            children: List.generate(imgList.length, (index) {
+              return SizedBox(
+                width: (MediaQuery.of(context).size.width - 30) / 2,
+                child: Column(
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        topRight: Radius.circular(5),
                       ),
-                    );
-                  }),
+                      child: Image.network(
+                        imgList[index],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(6),
+                      alignment: Alignment.centerLeft,
+                      decoration: const BoxDecoration(color: TColors.white),
+                      child: Column(
+                        children: [
+                          const Text(
+                            "HARDDISK INTERNAL 1 TB HDD CCTV TYPE SATA",
+                            style: TextStyle(fontSize: 11),
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Image.asset("assets/images/cod-blue.png",
+                                  width: 20)
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Rp",
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: TColors.primary,
+                                ),
+                              ),
+                              SizedBox(width: 2),
+                              Text(
+                                "299.000",
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: TColors.primary,
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-              ),
-            ],
+              );
+            }),
           ),
         ),
-      ),
+      ],
     );
   }
 }

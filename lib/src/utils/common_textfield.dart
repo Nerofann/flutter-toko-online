@@ -52,13 +52,13 @@ class _CommonTextfieldState extends State<CommonTextfield> {
       obscureText: _isObscure,
       onChanged: widget.onChanged,
       maxLines: !_isObscure ? widget.maxLines : 1,
-      style: const TextStyle(color: Colors.black45), // Set text color
+      style: const TextStyle(color: Colors.black45, fontSize: 13), // Set text color
       cursorColor: Colors.black45,
       decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
         hintText: widget.hintText,
-        hintStyle: const TextStyle(color: Colors.black45),
+        hintStyle: const TextStyle(color: Colors.black45, fontSize: 13),
         labelStyle: const TextStyle(color: Colors.black45), // Set accent color
         helperText: widget.helperText,
         prefixIcon: Icon(widget.prefixIconData, color: Colors.black45),
