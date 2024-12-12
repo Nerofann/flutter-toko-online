@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_tokoku/src/dashboard/small_menu.dart';
-import 'package:mobile_tokoku/src/models/m_product.dart';
+import 'package:mobile_tokoku/src/dashboard/models/m_product.dart';
 import 'package:mobile_tokoku/src/utils/TColors.dart';
 import 'dashboard_service.dart';
 
@@ -66,31 +66,38 @@ class _DashboardState extends State<Dashboard> {
                         padding: const EdgeInsets.all(6),
                         alignment: Alignment.centerLeft,
                         decoration: const BoxDecoration(
-                            color: TColors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                          color: TColors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ClipRRect(
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(5),
                                 topRight: Radius.circular(5),
                               ),
-                              child: Image.network(data![i].productImage!,
-                                  fit: BoxFit.cover, loadingBuilder:
-                                      (BuildContext context, Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                if (loadingProgress == null) return child;
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!
-                                        : null,
-                                  ),
-                                );
-                              }),
+                              child: Image.network(
+                                data![i].productImage!,
+                                fit: BoxFit.cover,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                             Text(
                               data[i].productTitle ?? "-",

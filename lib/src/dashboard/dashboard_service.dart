@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/m_product.dart';
+import 'models/m_product.dart';
 
 Future<List<Products>> getProducts() async {
-  final uri = Uri.parse("https://dummyjson.com/products?limit=5");
+  final uri = Uri.parse("https://dummyjson.com/products?limit=10");
   final response = await http.get(
     uri,
     headers: {"Content-Type": "application/json"},
